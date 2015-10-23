@@ -23,14 +23,17 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
         super.onCreate(savedInstanceState);
 
+        //显示布局之前的操作
         operation_before_show_ui();
 
-        setContentView(setLayoutId());
+        if(setLayoutId()!=0)setContentView(setLayoutId());
 
-        operation_after_show_ui();
 
         //Butterknife注入Activity
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
+
+        // 显示布局之后的操作
+        operation_after_show_ui();
 
     }
 
@@ -42,6 +45,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         return layoutId;
     }
 
+//    public boolean
 
     @Override
     public void onClick(View v) {

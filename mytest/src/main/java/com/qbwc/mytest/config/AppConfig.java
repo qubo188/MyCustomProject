@@ -10,6 +10,7 @@ package com.qbwc.mytest.config;
 public class AppConfig {
 
 
+    public static final String APP_TAG_NAME = "mytest";
      /*
       *true : 已连接上网络   | false : 没有连接上网络
       */
