@@ -8,6 +8,21 @@
         android:id="@+id/guidViewPageId"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/sginMainId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sginMain"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/btn_line_radius_style"
+        android:visibility="gone"
+        android:textColor="#ffffff"
+        android:layout_marginBottom="35dp"
+        />
+
     <LinearLayout
         android:id="@+id/pageTip_LL_Id"
         android:layout_width="match_parent"
@@ -15,8 +30,11 @@
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:layout_marginBottom="30dp"
+        android:layout_above="@id/sginMainId"
+        android:layout_marginBottom="100dp"
         >
 
+
     </LinearLayout>
+
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.qbwc.mytest.config;
 
 import android.app.Application;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -22,6 +23,9 @@ public class AppContext extends Application {
     private static DaoMaster daoMaster;
     //greenDao的主要操作工具类
     private static DaoSession daoSession;
+    //greenDao获取 SqliteDatabase
+    private SQLiteDatabase sqliteDatabase;
+
     // Volley只需要 初始化 1次 RequestHttpQueue;
     public static RequestQueue reqHttpQueue;
     public static RequestQueue reqHttpsQueue;

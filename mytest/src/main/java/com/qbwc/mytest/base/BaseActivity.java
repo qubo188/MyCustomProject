@@ -3,8 +3,11 @@ package com.qbwc.mytest.base;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.qbwc.mytest.listener.FragmentCallbackActivityListener;
+import com.qbwc.mytest.manager.ActivityManager;
 
 import butterknife.ButterKnife;
 
@@ -14,7 +17,7 @@ import butterknife.ButterKnife;
  * 创建人：qb
  * 创建时间：2015/10/13 0013 上午 9:58
  */
-public class BaseActivity extends FragmentActivity implements View.OnClickListener , FragmentCallbackActivityListener {
+public class BaseActivity extends FragmentActivity implements View.OnClickListener, FragmentCallbackActivityListener {
 
     public int layoutId;
 
@@ -26,15 +29,22 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         //显示布局之前的操作
         operation_before_show_ui();
 
-        if(setLayoutId()!=0)setContentView(setLayoutId());
+        //是否隐藏状态栏
+        if (!availableStatusBar()) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+            Window w = this.getWindow();
+            w.setFlags(flag , flag);
+        }
 
+        if (setLayoutId() != 0) setContentView(setLayoutId());
 
         //Butterknife注入Activity
         ButterKnife.bind(this);
 
         // 显示布局之后的操作
         operation_after_show_ui();
-
+        ActivityManager.instance().pushActivity(this);
     }
 
 
@@ -45,7 +55,15 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
         return layoutId;
     }
 
-//    public boolean
+    /*
+     * Description : status bar  是否 可用  DefaultValue:false <br>
+     *               true:显示 statusBar
+     *               false:不显示 statusBar
+     *
+     */
+    public boolean availableStatusBar() {
+        return false;
+    }
 
     @Override
     public void onClick(View v) {
@@ -74,24 +92,30 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
     public void fragmentCallbackActivity() {
 
     }
+
     /**
      * Description fragment回调 Activity里面的方法。用于传递
+     *
      * @param what 传递 int 类型数据
      */
     @Override
     public void fragmentCallbackActivity(int what) {
 
     }
+
     /**
      * Description fragment回调 Activity里面的方法。用于传递
+     *
      * @param str 传递 str 类型数据
      */
     @Override
     public void fragmentCallbackActivity(String str) {
 
     }
+
     /**
      * Description fragment回调 Activity里面的方法。用于传递
+     *
      * @param bundle 传递 bundle 类型数据
      */
     @Override

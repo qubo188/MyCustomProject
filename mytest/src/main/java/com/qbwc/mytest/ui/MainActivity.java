@@ -11,5 +11,14 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
+    @Override
+    public boolean availableStatusBar(){
+        return false;
+    }
+
+    @Override
+    public void operation_after_show_ui(){
+    }
+
 
 }
