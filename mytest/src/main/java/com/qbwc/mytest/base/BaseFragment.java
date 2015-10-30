@@ -31,7 +31,7 @@ public class BaseFragment extends Fragment {
             operation_after_show_fragment();
 
             // Butterknife注入 Fragment
-            ButterKnife.inject(this,view);
+            ButterKnife.bind(this,view);
 
         }
 

@@ -1,11 +1,17 @@
 package com.qbwc.mytest.network;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Response;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectPostRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonPostHttpsRequest;
 import com.qbwc.mytest.config.AppContext;
 
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 /**
@@ -19,23 +25,6 @@ public class NetWorkApi {
 
     /**
      * @param reqTag 请求的标识
-     * @param reqType 请求的类型 POTS/GET
-     * @param reqUrl  请求的地址
-     * @param params      传递的参数
-     * @param sCallback 成功之后的回调
-     * @param eCallback 失败的回调
-     * Description ：主要用于分发 POST 和 GET 请求
-     */
-    public static void requestHttp(String reqTag , String reqType , String reqUrl , Map<String,Object> params , Response.Listener sCallback, Response.ErrorListener eCallback){
-        if(reqType.equals("POST")){
-            reqPostHttp(reqTag, reqUrl, params, sCallback, eCallback);
-        }else{
-            reqGetHttp(reqTag, reqUrl, params, sCallback, eCallback);
-        }
-    }
-
-    /**
-     * @param reqTag 请求的标识
      * @param reqUrl  请求的地址
      * @param params      传递的参数
      * @param sCallback 成功之后的回调
@@ -43,7 +32,20 @@ public class NetWorkApi {
      * Description : 创建 Http 的 post请求
      */
     public static void reqPostHttp(String reqTag , String reqUrl , Map<String,Object> params , Response.Listener sCallback, Response.ErrorListener eCallback){
-        JsonObjectPostRequest jopr = new JsonObjectPostRequest(reqUrl , sCallback , eCallback , params);
+        JsonObjectPostRequest jopr = new JsonObjectPostRequest(reqUrl , sCallback , eCallback , params){
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                try {
+                    String jsonString = new String(response.data, "UTF-8");
+                    return Response.success(new JSONObject(jsonString),
+                            HttpHeaderParser.parseCacheHeaders(response));
+                } catch (UnsupportedEncodingException e) {
+                    return Response.error(new ParseError(e));
+                } catch (Exception je) {
+                    return Response.error(new ParseError(je));
+                }
+            }
+        };
         jopr.setRequestType(reqTag);
         AppContext.reqHttpQueue.add(jopr);
     }
@@ -51,13 +53,25 @@ public class NetWorkApi {
     /**
      * @param reqTag 请求的标识
      * @param reqUrl  请求的地址
-     * @param params      传递的参数
      * @param sCallback 成功之后的回调
      * @param eCallback 失败的回调
      * Description 创建 Http 的 get请求
      */
-    public static void reqGetHttp(String reqTag , String reqUrl , Map<String,Object> params , Response.Listener sCallback, Response.ErrorListener eCallback){
-        JsonObjectRequest jor = new JsonObjectRequest(reqUrl , null , sCallback , eCallback);
+    public static void reqGetHttp(String reqTag , String reqUrl  , Response.Listener sCallback, Response.ErrorListener eCallback){
+        JsonObjectRequest jor = new JsonObjectRequest(reqUrl , null , sCallback , eCallback){
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                try {
+                    String jsonString = new String(response.data, "UTF-8");
+                    return Response.success(new JSONObject(jsonString),
+                            HttpHeaderParser.parseCacheHeaders(response));
+                } catch (UnsupportedEncodingException e) {
+                    return Response.error(new ParseError(e));
+                } catch (Exception je) {
+                    return Response.error(new ParseError(je));
+                }
+            }
+        };
         jor.setRequestType(reqTag);
         AppContext.reqHttpQueue.add(jor);
     }
@@ -71,7 +85,20 @@ public class NetWorkApi {
      * Description 创建 Https 的 get请求
      */
     public static void requestHttps(String reqTag , String reqUrl , Map<String,Object> params , Response.Listener sCallback, Response.ErrorListener eCallback){
-        JsonPostHttpsRequest jpr = new JsonPostHttpsRequest(reqUrl , sCallback , eCallback , params);
+        JsonPostHttpsRequest jpr = new JsonPostHttpsRequest(reqUrl , sCallback , eCallback , params){
+            @Override
+            protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                try {
+                    String jsonString = new String(response.data, "UTF-8");
+                    return Response.success(new JSONObject(jsonString),
+                            HttpHeaderParser.parseCacheHeaders(response));
+                } catch (UnsupportedEncodingException e) {
+                    return Response.error(new ParseError(e));
+                } catch (Exception je) {
+                    return Response.error(new ParseError(je));
+                }
+            }
+        };
         jpr.setRequestType(reqTag);
         AppContext.reqHttpsQueue.add(jpr);
     }

@@ -10,6 +10,7 @@ package com.qbwc.mytest.config;
 public class AppConfig {
 
 
+    public static final String APP_TAG_NAME = "mytest";
      /*
       *true : 已连接上网络   | false : 没有连接上网络
       */
@@ -23,10 +24,13 @@ public class AppConfig {
       */
     public static final String DB_NAME = "mytest_db";
 
-    public static final String SSL_CONNECT_KEYSTORE_PWD = "yaochizaocan";
     /*
-     * 域名
+     * 连接 bks的密码
      */
-    public static final String NETWOR_KADDRESS = "";
+    public static final String SSL_CONNECT_KEYSTORE_PWD = "yaochizaocan";
 
+    /*
+     * 正式域名
+     */
+    public static final String NETWORK_GA_ADDRESS = "http://dev.oekocn.com:6080";
 }
