@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.qbwc.mytest.listener.FragmentCallbackActivityListener;
 import com.qbwc.mytest.manager.ActivityManager;
 
@@ -41,6 +42,8 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
         //Butterknife注入Activity
         ButterKnife.bind(this);
+        //初始化  Fresco
+        Fresco.initialize(this);
 
         // 显示布局之后的操作
         operation_after_show_ui();
@@ -85,41 +88,8 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
-    /**
-     * Description fragment回调 Activity里面的方法。用于传递
-     */
     @Override
-    public void fragmentCallbackActivity() {
-
-    }
-
-    /**
-     * Description fragment回调 Activity里面的方法。用于传递
-     *
-     * @param what 传递 int 类型数据
-     */
-    @Override
-    public void fragmentCallbackActivity(int what) {
-
-    }
-
-    /**
-     * Description fragment回调 Activity里面的方法。用于传递
-     *
-     * @param str 传递 str 类型数据
-     */
-    @Override
-    public void fragmentCallbackActivity(String str) {
-
-    }
-
-    /**
-     * Description fragment回调 Activity里面的方法。用于传递
-     *
-     * @param bundle 传递 bundle 类型数据
-     */
-    @Override
-    public void fragmentCallbackActivity(Bundle bundle) {
+    public <T> void fragmentCallbackActivity(T who) {
 
     }
 }

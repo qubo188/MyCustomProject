@@ -25,4 +25,14 @@ public class DbService {
         return dao.insert(bean);
     }
 
+    /**
+     * @param dao   Bean的管理操作类
+     * @param <T1>
+     * @param <T2>
+     * @return 具体查询出来的 对象 。如果无数据 将返回null
+     * Description : 主要用于  select Database to bean
+     */
+    public static <T1 extends BaseBean , T2 extends AbstractDao> T1 queryLastOne(T2 dao, String tableName){
+        return (T1)dao.queryRaw("order by _id desc").get(0);
+    }
 }

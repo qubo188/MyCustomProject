@@ -1,5 +1,7 @@
 package com.qbwc.mytest.ui;
 
+import android.view.KeyEvent;
+
 import com.qbwc.mytest.R;
 import com.qbwc.mytest.base.BaseActivity;
 
@@ -20,5 +22,10 @@ public class MainActivity extends BaseActivity {
     public void operation_after_show_ui(){
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode , KeyEvent event){
+        if()
+    }
 
 }

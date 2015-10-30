@@ -24,12 +24,12 @@ public class StartActivity extends BaseActivity {
         int startCount = (int) PreferencesUtils.getSharedPeferencesValue(this, "startCount", 0);
         if(startCount==0){
             PreferencesUtils.setSharedPeferencesValue(this, "startCount", 1, 0);
-            // 第一次进入 加载引导页
+            // 第一次进入 加载引导页 。并且第一次请求网络广告数据。入库
             ActivityManager.instance().startNextActivity(GuideActivity.class);
-            ActivityManager.instance().popActivity(this);
         }else{
-            // TODO: 2015/10/21 0021  第二次进入时。显示本地图片+广告页
+            ActivityManager.instance().startNextActivity(AdvertiseActivity.class);
         }
+        ActivityManager.instance().popActivity(this);
     }
 
     /**

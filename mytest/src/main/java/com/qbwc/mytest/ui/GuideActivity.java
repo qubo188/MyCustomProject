@@ -202,8 +202,8 @@ public class GuideActivity extends BaseActivity implements ViewPager.OnPageChang
             List<Advertise> data = ParseDataUtils.parseDataList(Advertise.class , bb.getData());
             if(data.size()>0){
                 for(Advertise ad : data){
-                    long count = adDao.queryBuilder().where(AdvertiseDao.Properties.Subtitle.eq(ad.getTitle())).count();
-                    if(count>0) LogUtils.pdebug("GuideActivity---205--->重复数据为--->"+ad.getTitle());
+                    List<Advertise> advertise = adDao.queryBuilder().where(AdvertiseDao.Properties.Subtitle.eq(ad.getTitle())).list();
+                    if(advertise.size()>0) LogUtils.pdebug("GuideActivity---205--->重复数据为--->"+ad.getTitle());
                     else DbService.insert(ad , adDao);
                 }
             }

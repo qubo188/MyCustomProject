@@ -35,6 +35,8 @@ public class AppContext extends Application {
         super.onCreate();
         if (appContext == null) appContext = this;
         reqHttpQueue = Volley.newRequestQueue(this);
+
+
        /* reqHttpsQueue = Volley.newHttpsRequestQueue(getApplicationContext(),
                 new SslHttpStack(new SslHttpClient(this, R.raw.android_user, AppConfig.SSL_CONNECT_KEYSTORE_PWD)));*/
     }
